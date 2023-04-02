@@ -11,7 +11,7 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->user()->user_type === UserRolesEnum::ADMIN) {
+        if ($request->user()->user_type->value === UserRolesEnum::ADMIN->value) {
             return $next($request);
         } else {
             return redirect('/');
