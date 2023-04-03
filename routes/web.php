@@ -5,6 +5,7 @@ use App\Http\Controllers\IncludesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,16 @@ Route::middleware(['auth', 'admin'])->name('admin.')
             Route::post('/{id}', [RequirementController::class, 'update'])->name('update');
             Route::delete('/{id}', [RequirementController::class, 'destroy'])->name('destroy');
             Route::get('/{id}/reactivate', [RequirementController::class, 'reactivate'])->name('reactivate');
+        });
+
+        Route::prefix('/language')->name('language.')->group(function () {
+            Route::get('/', [LanguageController::class, 'index'])->name('list');
+            Route::get('/create', [LanguageController::class, 'create'])->name('create');
+            Route::post('/', [LanguageController::class, 'store'])->name('store');
+            Route::get('/{id}', [LanguageController::class, 'show'])->name('show');
+            Route::post('/{id}', [LanguageController::class, 'update'])->name('update');
+            Route::delete('/{id}', [LanguageController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/reactivate', [LanguageController::class, 'reactivate'])->name('reactivate');
         });
     });
 
