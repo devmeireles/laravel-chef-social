@@ -12,6 +12,8 @@
                 <span class="ml-3">Dashboard</span>
             </a>
         </li>
+
+        @if(Request::user()->user_type->value === App\Enums\UserRolesEnum::ADMIN->value)
         <li>
             <button type="button"
                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -54,6 +56,19 @@
             </a>
         </li>
         <li>
+            <a href="{{route('admin.tag.list')}}"
+                class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                <svg fill="none" class="w-6 h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z">
+                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z"></path>
+                </svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">Tags</span>
+            </a>
+        </li>
+        <li>
             <a href="#"
                 class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                 <svg fill="none" class="w-6 h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
@@ -65,5 +80,6 @@
                 <span class="flex-1 ml-3 whitespace-nowrap">Coupons</span>
             </a>
         </li>
+        @endif
     </ul>
 </div>
