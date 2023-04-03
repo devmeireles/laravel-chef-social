@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PerkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -83,6 +84,16 @@ Route::middleware(['auth', 'admin'])->name('admin.')
             Route::post('/{id}', [LanguageController::class, 'update'])->name('update');
             Route::delete('/{id}', [LanguageController::class, 'destroy'])->name('destroy');
             Route::get('/{id}/reactivate', [LanguageController::class, 'reactivate'])->name('reactivate');
+        });
+
+        Route::prefix('/perk')->name('perk.')->group(function () {
+            Route::get('/', [PerkController::class, 'index'])->name('list');
+            Route::get('/create', [PerkController::class, 'create'])->name('create');
+            Route::post('/', [PerkController::class, 'store'])->name('store');
+            Route::get('/{id}', [PerkController::class, 'show'])->name('show');
+            Route::post('/{id}', [PerkController::class, 'update'])->name('update');
+            Route::delete('/{id}', [PerkController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/reactivate', [PerkController::class, 'reactivate'])->name('reactivate');
         });
     });
 
