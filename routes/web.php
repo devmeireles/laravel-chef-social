@@ -3,6 +3,7 @@
 use App\Http\Controllers\CuisineController;
 use App\Http\Controllers\IncludesController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +62,16 @@ Route::middleware(['auth', 'admin'])->name('admin.')
             Route::post('/{id}', [TagController::class, 'update'])->name('update');
             Route::delete('/{id}', [TagController::class, 'destroy'])->name('destroy');
             Route::get('/{id}/reactivate', [TagController::class, 'reactivate'])->name('reactivate');
+        });
+
+        Route::prefix('/requirement')->name('requirement.')->group(function () {
+            Route::get('/', [RequirementController::class, 'index'])->name('list');
+            Route::get('/create', [RequirementController::class, 'create'])->name('create');
+            Route::post('/', [RequirementController::class, 'store'])->name('store');
+            Route::get('/{id}', [RequirementController::class, 'show'])->name('show');
+            Route::post('/{id}', [RequirementController::class, 'update'])->name('update');
+            Route::delete('/{id}', [RequirementController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/reactivate', [RequirementController::class, 'reactivate'])->name('reactivate');
         });
     });
 
