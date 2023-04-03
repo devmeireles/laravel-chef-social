@@ -5,17 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Cuisine;
 use App\Http\Requests\StoreCuisineRequest;
 use App\Http\Requests\UpdateCuisineRequest;
+use App\Repositories\CuisineRepository;
 use Illuminate\Support\Facades\Redirect;
 use Route;
 
 class CuisineController extends Controller
 {
+    private CuisineRepository $cuisineRepository;
+
+    public function __construct(CuisineRepository $cuisineRepository)
+    {
+        $this->cuisineRepository = $cuisineRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $items = Cuisine::withTrashed()->orderByDesc('id')->paginate(10);
+        $items = $this->cuisineRepository->getAllWithPagination();
+
         return view('admin.cuisine.list')->with(['items' => $items]);
     }
 
@@ -32,7 +41,7 @@ class CuisineController extends Controller
      */
     public function store(StoreCuisineRequest $request)
     {
-        Cuisine::create($request->validated());
+        $this->cuisineRepository->createItem($request->validated());
 
         return Redirect::route('admin.cuisine.list')->
             with('success', "$request->name cuisine created successfully");
@@ -43,7 +52,8 @@ class CuisineController extends Controller
      */
     public function show(Cuisine $cuisine, int $id)
     {
-        $item = Cuisine::withTrashed()->find($id);
+        $item = $this->cuisineRepository->getById($id);
+
         return view('admin.cuisine.form')->with(['item' => $item]);
     }
 
@@ -52,12 +62,7 @@ class CuisineController extends Controller
      */
     public function update(UpdateCuisineRequest $request, int $id)
     {
-        $request->validated();
-
-        $cuisine = Cuisine::find($id);
-        $cuisine->name = $request->name;
-        $cuisine->description = $request->description;
-        $cuisine->save();
+        $this->cuisineRepository->updateItem($request->validated(), $id);
 
         return Redirect::route('admin.cuisine.list')->
             with('success', "$request->name cuisine update successfully");
@@ -68,7 +73,7 @@ class CuisineController extends Controller
      */
     public function destroy(int $id)
     {
-        Cuisine::destroy($id);
+        $this->cuisineRepository->destroyById($id);
 
         return Redirect::route('admin.cuisine.list')->
             with('success', "Cuisine deactivated successfully");
@@ -79,10 +84,9 @@ class CuisineController extends Controller
      */
     public function reactivate(int $id)
     {
-        $cuisine = Cuisine::withTrashed()->find($id);
-        $cuisine->restore();
+        $this->cuisineRepository->reactiveById($id);
 
         return Redirect::route('admin.cuisine.list')->
-            with('success', "$cuisine->name cuisine restored successfully");
+            with('success', "Cuisine restored successfully");
     }
 }
