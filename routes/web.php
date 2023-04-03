@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CuisineController;
+use App\Http\Controllers\IncludesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,16 @@ Route::middleware(['auth', 'admin'])->name('admin.')
             Route::post('/{id}', [CuisineController::class, 'update'])->name('update');
             Route::delete('/{id}', [CuisineController::class, 'destroy'])->name('destroy');
             Route::get('/{id}/reactivate', [CuisineController::class, 'reactivate'])->name('reactivate');
+        });
+
+        Route::prefix('/includes')->name('includes.')->group(function () {
+            Route::get('/', [IncludesController::class, 'index'])->name('list');
+            Route::get('/create', [IncludesController::class, 'create'])->name('create');
+            Route::post('/', [IncludesController::class, 'store'])->name('store');
+            Route::get('/{id}', [IncludesController::class, 'show'])->name('show');
+            Route::post('/{id}', [IncludesController::class, 'update'])->name('update');
+            Route::delete('/{id}', [IncludesController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/reactivate', [IncludesController::class, 'reactivate'])->name('reactivate');
         });
     });
 
