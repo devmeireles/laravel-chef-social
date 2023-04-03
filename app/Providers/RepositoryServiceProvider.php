@@ -2,11 +2,15 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\ServiceProvider;
+
 use App\Interfaces\CuisineInterface;
 use App\Interfaces\IncludesInterface;
+use App\Interfaces\TagInterface;
+
 use App\Repositories\CuisineRepository;
 use App\Repositories\IncludesRepository;
-use Illuminate\Support\ServiceProvider;
+use App\Repositories\TagRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -17,6 +21,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(CuisineInterface::class, CuisineRepository::class);
         $this->app->bind(IncludesInterface::class, IncludesRepository::class);
+        $this->app->bind(TagInterface::class, TagRepository::class);
     }
 
     /**
