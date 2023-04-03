@@ -8,11 +8,13 @@ use App\Interfaces\CuisineInterface;
 use App\Interfaces\IncludesInterface;
 use App\Interfaces\TagInterface;
 use App\Interfaces\RequirementInterface;
+use App\Interfaces\LanguageInterface;
 
 use App\Repositories\CuisineRepository;
 use App\Repositories\IncludesRepository;
 use App\Repositories\TagRepository;
 use App\Repositories\RequirementRepository;
+use App\Repositories\LanguageRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IncludesInterface::class, IncludesRepository::class);
         $this->app->bind(TagInterface::class, TagRepository::class);
         $this->app->bind(RequirementInterface::class, RequirementRepository::class);
+        $this->app->bind(LanguageInterface::class, LanguageRepository::class);
     }
 
     /**
