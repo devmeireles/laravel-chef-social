@@ -25,6 +25,7 @@ class StoreCuisineRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', Rule::unique('cuisines')->ignore($this->id)],
+            'slug' => ['string'],
             'description' => ['string'],
         ];
     }

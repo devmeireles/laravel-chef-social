@@ -18,6 +18,7 @@ class Cuisine extends Model
      */
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'active',
     ];

@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\CuisineInterface;
 use App\Models\Cuisine;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
@@ -31,6 +30,7 @@ class CuisineRepository implements CuisineInterface
     {
         $cuisine = Cuisine::find($id);
         $cuisine->name = $item['name'];
+        $cuisine->slug = $item['slug'];
         $cuisine->description = $item['description'];
         $cuisine->save();
     }

@@ -59,6 +59,14 @@
                     </div>
 
                     <div class="mb-6">
+                        <label for="slug" class="block mb-2 text-sm font-medium text-gray-900">Slug</label>
+                        <input type="text" id="slug" name="slug"
+                            class="bg-stone-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                            placeholder="The Cuisine name" readonly value="{{!empty($item->slug) ? $item->slug : old('slug')}}">
+                        <x-input-error :messages="$errors->get('slug')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-6">
                         <label for="description"
                             class="block mb-2 text-sm font-medium text-gray-900">Description</label>
                         <textarea id="description" rows="4" name="description"
@@ -135,4 +143,24 @@
         </form>
     </div>
     @endif
+
+    <script>
+        // Get the input and output elements
+        const nameInput = document.getElementById("name");
+        const slugOutput = document.getElementById("slug");
+
+        // Add an event listener to the input element
+        nameInput.addEventListener("input", () => {
+            // Get the value of the input element and normalize it
+            const name = nameInput.value.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+
+            // Convert the normalized text to a slug string
+            const slug = name.toLowerCase().replace(/[^a-zA-Z0-9]+/g, "-");
+
+            // Update the value of the output element with the generated slug
+            slugOutput.value = slug;
+        });
+
+
+    </script>
 </x-admin-layout>
